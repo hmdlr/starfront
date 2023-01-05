@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "version": "0.0.1",
+  "short_name": "StarPhish",
+  "name": "StarPhish",
+  "description": "AI-powered phishing protection for a brighter, safer online experience. Your out of this world security 🚀",
+  "action": {
+    "default_title": "StarPhish",
+    "default_popup": "popup.html",
+    "default_icon": "img/icon-128.png"
+  },
+  "background": {
+    "service_worker": "background.bundle.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "contentScript.bundle.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "resources": []
+    }
+  ],
+  "icons": {
+    "16": "img/icon-16.png",
+    "48": "img/icon-48.png",
+    "128": "img/icon-128.png"
+  },
+  "options_page": "options.html",
+  "permissions": [
+    "<all_urls>",
+    "activeTab",
+    "storage"
+  ],
+  "content_security_policy": {
+    "script-src": "self unsafe-eval",
+    "object-src": "self"
+  }
+}

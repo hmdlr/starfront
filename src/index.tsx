@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { Store } from 'webext-redux';
+import { Provider } from 'react-redux';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {Store} from "webext-redux";
-import {ports} from "./constants/ports";
-import {Provider} from "react-redux";
+import env from './env';
 
-const proxyStore = new Store({
-    portName: ports.main
-})
+const proxyStore = new Store({ portName: env.commPort });
 
 ReactDOM.render(
     <Provider store={proxyStore}>

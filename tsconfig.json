@@ -1,6 +1,11 @@
 {
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  },
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2017",
     "lib": [
       "dom",
       "dom.iterable",
@@ -12,6 +17,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "pretty": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -19,9 +25,13 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "baseUrl": "."
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
   ]
 }
