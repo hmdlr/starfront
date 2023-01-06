@@ -7,7 +7,7 @@
   "action": {
     "default_title": "StarPhish",
     "default_popup": "popup.html",
-    "default_icon": "img/icon-128.png"
+    "default_icon": "img/default-logo.png"
   },
   "background": {
     "service_worker": "background.bundle.js"
@@ -26,7 +26,7 @@
   "web_accessible_resources": [
     {
       "matches": [
-        "<all_urls>"
+        "*://*/*"
       ],
       "resources": []
     }
@@ -38,7 +38,6 @@
   },
   "options_page": "options.html",
   "permissions": [
-    "<all_urls>",
     "activeTab",
     "storage"
   ],
