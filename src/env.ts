@@ -8,8 +8,9 @@ export default {
   },
   api: {
     [Microservice.Authphish]: process.env.NODE_ENV === 'development'
-      ? `${MicroservicePaths[Microservice.Authphish]}api`
-      : 'https://auth.starphish.app/api',
+        ? `${MicroservicePaths[Microservice.Authphish]}api`
+        : 'https://auth.starphish.app/api',
   },
   commPort: 'starph1sh',
+  tokenLocation: 'starphish-token',
 };

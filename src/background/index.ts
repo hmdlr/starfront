@@ -5,13 +5,11 @@ import { store } from '../redux/store';
 import env from '../env';
 
 // This needs to be an export due to typescript implementation limitation of needing '--isolatedModules' tsconfig
-export function runBackgroundScripts() {
+export async function runBackgroundScripts() {
   wrapStore(store, { portName: env.commPort });
 
-  // listBookmarks().then((bookmarkedVideos: BookmarkedVideo[]) => {
-  //   if (bookmarkedVideos === undefined) return;
-  //   store.dispatch(replaceBookmarks(bookmarkedVideos));
-  // });
 }
 
-runBackgroundScripts();
+(async () => {
+  await runBackgroundScripts();
+})();

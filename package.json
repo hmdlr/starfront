@@ -2,6 +2,7 @@
   "name": "starfront",
   "version": "0.1.0",
   "private": true,
+  "homepage": "starphish.app",
   "dependencies": {
     "@babel/eslint-parser": "^7.19.1",
     "@emotion/react": "^11.7.1",
@@ -14,6 +15,7 @@
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "@webcomponents/custom-elements": "^1.5.0",
+    "axios": "^1.2.2",
     "react": "^17.0.2",
     "react-browser-extension-scripts": "4.0.10",
     "react-dom": "^17.0.2",

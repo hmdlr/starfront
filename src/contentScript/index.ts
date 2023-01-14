@@ -9,8 +9,10 @@ import { getLogger } from '@hmdlr/utils';
 import env from '../env';
 
 const logger = getLogger();
-export const runHighlightr = async () => {
+export const runStarphish = async () => {
   logger.info(`StarPhish ${env.version.name} is shielding you!`);
+
+
 };
 
-runHighlightr();
+runStarphish();

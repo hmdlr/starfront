@@ -1,3 +1,6 @@
 import { combineReducers } from 'redux';
+import { collectedReducer } from "./collectedReducer";
 
-export default combineReducers({});
+export default combineReducers({
+  collectedReducer,
+});
