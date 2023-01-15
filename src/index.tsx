@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Store } from 'webext-redux';
 import { Provider } from 'react-redux';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import env from './env';
+import { App } from './popup';
 
 const proxyStore = new Store({ portName: env.commPort });
 

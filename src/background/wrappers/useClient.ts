@@ -3,7 +3,6 @@ import { storageRetrieve } from "../../persistence/chromeStorage";
 import env from "../../env";
 
 const defaultOptions: AxiosRequestConfig = {
-  baseURL: "http://localhost:1337/api",
   method: "GET",
   headers: {
     "Content-Type": "application/json",

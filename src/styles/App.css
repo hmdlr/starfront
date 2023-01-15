@@ -1,0 +1,68 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    background: #131212;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 3px #0d0421;
+    border-radius: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #33A6CA;
+    border-radius: 4px;
+}
+
+#root {
+    width: 470px;
+    height: 480px;
+}
+
+.lato {
+    font-family: 'Lato', sans-serif;
+}
+
+.App-header {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+hr {
+    border-style: inset;
+    border-width: 1px;
+}
+
+.gradient-body {
+    height: 100%;
+    margin: 0;
+    background: linear-gradient(186deg, rgba(0, 0, 0, 1) 4%, rgba(0, 0, 0, 1) 7%, rgba(3, 1, 43, 1) 88%, rgba(4, 2, 53, 1) 100%) no-repeat fixed;
+}
+
+p {
+    color: #c8cfe2;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+span {
+    color: #c8cfe2;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+h1 {
+    color: #c8cfe2;
+    font-size: 2rem;
+    font-weight: 700;
+}

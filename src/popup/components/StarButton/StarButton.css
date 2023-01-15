@@ -1,0 +1,17 @@
+.star-button {
+    background-color: #1a162f;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    width: 85%;
+    height: 70px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    cursor: pointer;
+}
+
+.star-button > span {
+    color: #837ea6;
+}

@@ -15,7 +15,7 @@
   "content_scripts": [
     {
       "matches": [
-        "<all_urls>"
+        "*://*/*"
       ],
       "js": [
         "contentScript.bundle.js"
@@ -28,7 +28,7 @@
       "matches": [
         "*://*/*"
       ],
-      "resources": []
+      "resources": ["public/*"]
     }
   ],
   "icons": {
