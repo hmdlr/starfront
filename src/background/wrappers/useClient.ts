@@ -1,3 +1,4 @@
+import { StarClient } from "@hmdlr/types";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { storageRetrieve } from "../../persistence/chromeStorage";
 import env from "../../env";
@@ -8,13 +9,6 @@ const defaultOptions: AxiosRequestConfig = {
     "Content-Type": "application/json",
   },
 };
-
-export interface StarClient {
-  get: <T>(url: string, options?: any) => Promise<AxiosResponse<T>>;
-  post: <T>(url: string, data: any, options?: any) => Promise<AxiosResponse<T>>;
-  put: <T>(url: string, data: any, options?: any) => Promise<AxiosResponse<T>>;
-  delete: <T>(url: string, options?: any) => Promise<AxiosResponse<T>>;
-}
 
 const clientContext: {
   client: StarClient
