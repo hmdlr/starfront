@@ -1,5 +1,5 @@
 import { StarClient } from "@hmdlr/types";
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { storageRetrieve } from "../../persistence/chromeStorage";
 import env from "../../env";
 

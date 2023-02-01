@@ -9,14 +9,16 @@ import { App } from './popup';
 
 const proxyStore = new Store({ portName: env.commPort });
 
-ReactDOM.render(
-    <Provider store={proxyStore}>
+proxyStore.ready().then(() => {
+  ReactDOM.render(
+      <Provider store={proxyStore}>
         <React.StrictMode>
-            <App/>
+          <App/>
         </React.StrictMode>
-    </Provider>,
-    document.getElementById('root')
-);
+      </Provider>,
+      document.getElementById('root')
+  );
+});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

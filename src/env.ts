@@ -1,4 +1,9 @@
-import { Microservice, MicroservicePaths } from '@hmdlr/utils/dist/Microservice';
+import {
+  DeployedPaths,
+  FrontPaths,
+  LocalPaths,
+  Microservice
+} from '@hmdlr/utils/dist/Microservice';
 
 export default {
   version: {
@@ -8,8 +13,13 @@ export default {
   },
   api: {
     [Microservice.Authphish]: process.env.NODE_ENV === 'development'
-        ? `${MicroservicePaths[Microservice.Authphish]}api`
-        : 'https://auth.starphish.app/api',
+        ? `${LocalPaths[Microservice.Authphish]}`
+        : `${DeployedPaths[Microservice.Authphish]}`,
+  },
+  front: {
+    [Microservice.Authphish]: process.env.NODE_ENV === 'development'
+        ? `${FrontPaths[Microservice.Authphish]}`
+        : `${DeployedPaths[Microservice.Authphish]}`,
   },
   commPort: 'starph1sh',
   tokenLocation: 'starphish-token',

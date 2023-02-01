@@ -1,8 +1,29 @@
 import { Step } from "../../components/Step/Step";
 import { StarButton } from "../../components/StarButton/StarButton";
 import { StarphishIcon } from "../../components/StarphishIcon/StarphishIcon";
+import { useSelector, useStore } from "react-redux";
+import { selectPublicHalf } from "../../../redux/selectors/secretSelector";
+import { generateSecret } from "../../../redux/actions/secretActions";
+import { useEffect } from "react";
+import env from "../../../env";
+import { Microservice } from "@hmdlr/utils/dist/Microservice";
 
 export const Welcome = () => {
+  const store = useStore();
+  const publicHalf = useSelector(selectPublicHalf);
+
+  const signIn = () => {
+    store.dispatch(generateSecret());
+  };
+
+  useEffect(() => {
+    if (!publicHalf || publicHalf === '') {
+      return;
+    }
+    console.log(`${env.front[Microservice.Authphish]}/auth?code=${publicHalf}`);
+    window.open(`${env.front[Microservice.Authphish]}/auth?code=${publicHalf}`);
+  }, [publicHalf])
+
   return (
       <div
           style={{
@@ -22,8 +43,9 @@ export const Welcome = () => {
         <StarButton
             text={'Sign in'}
             onClick={() => {
+              signIn();
             }}
-            img={<StarphishIcon color={'#6766f6'} fontSize={'1.8rem'} />}
+            img={<StarphishIcon color={'#6766f6'} fontSize={'1.8rem'}/>}
         />
       </div>
   );

@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import ReactLoading from 'react-loading';
 import '../styles/App.css';
-import { Store } from "webext-redux";
 import env from "../env";
 import { storageRetrieve } from "../persistence/chromeStorage";
 import { Welcome } from './screens/welcome';
+import { useStore } from "react-redux";
 
 /**
  * Popup react page
  * @constructor
  */
 export const App = () => {
-  const store = new Store({
-    portName: env.commPort
-  });
-
   const [isAuth, setIsAuth] = useState(false);
   const [loaded, setLoaded] = useState(false);
 

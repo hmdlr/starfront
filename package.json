@@ -8,7 +8,7 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@hmdlr/types": "^2.2.0",
-    "@hmdlr/utils": "^0.1.10",
+    "@hmdlr/utils": "^0.1.15",
     "@types/chrome": "^0.0.206",
     "@types/jest": "^26.0.24",
     "@types/node": "^12.20.38",
@@ -24,11 +24,12 @@
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
     "typescript-plugin-css-modules": "^3.4.0",
+    "uuid": "^9.0.0",
     "web-vitals": "^1.1.2",
     "webext-redux": "^2.1.9"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_FRONTPHISH_PORT=$FRONTPHISH_PORT REACT_APP_AUTHPHISH_PORT=$AUTHPHISH_PORT react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -47,6 +48,7 @@
   },
   "devDependencies": {
     "@types/remote-redux-devtools": "^0.5.5",
+    "@types/uuid": "^9.0.0",
     "redux-devtools-extension": "^2.13.9",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.1",
