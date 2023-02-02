@@ -1,4 +1,5 @@
 import { SecretAction } from "../reducers/secretReducer";
+import { Alias } from "../aliases/types";
 
 export const updateSecret = (code: string) => ({
   type: SecretAction.SET,
@@ -6,5 +7,5 @@ export const updateSecret = (code: string) => ({
 });
 
 export const generateSecret = () => ({
-  type: SecretAction.GENERATE
+  type: Alias.Secret.GENERATE
 });

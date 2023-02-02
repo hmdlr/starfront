@@ -1,19 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { Store } from 'webext-redux';
+import { Store, applyMiddleware } from 'webext-redux';
 import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
 import reportWebVitals from './reportWebVitals';
 import env from './env';
 import { App } from './popup';
+import { ProvideAuth } from "./popup/hooks/useAuth";
+
 
 const proxyStore = new Store({ portName: env.commPort });
 
-proxyStore.ready().then(() => {
+const middleware = [thunkMiddleware];
+const proxyStoreWithMiddleware = applyMiddleware(proxyStore, ...middleware);
+
+proxyStoreWithMiddleware.ready().then(() => {
   ReactDOM.render(
-      <Provider store={proxyStore}>
+      <Provider store={proxyStoreWithMiddleware}>
         <React.StrictMode>
-          <App/>
+          <ProvideAuth>
+            <App/>
+          </ProvideAuth>
         </React.StrictMode>
       </Provider>,
       document.getElementById('root')
