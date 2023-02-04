@@ -11,13 +11,16 @@ export const withPersist = <T extends {
   payload: Record<string, any>;
 }>(actionResult: T, ttl?: number) => async (dispatch: any, getState: any) => {
   try {
+    const [path, action] = actionResult.type.split("/");
     await storageStore(
-        actionResult.type,
+        path,
         {
-          ...actionResult.payload,
-          _ttl: ttl ? Date.now() + ttl : undefined
+          [action]: {
+            ...actionResult.payload,
+            _ttl: ttl ? Date.now() + ttl : undefined
+          }
         }
-      );
+    );
   } catch (e) {
     console.error(e);
   }

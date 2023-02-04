@@ -12,7 +12,6 @@ const composedEnhancer = composeWithDevTools(
     )
 );
 
-// @ts-ignore
 export const store = createStore(
     reducers,
     composedEnhancer

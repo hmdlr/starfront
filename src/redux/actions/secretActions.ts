@@ -1,8 +1,8 @@
-import { SecretAction } from "../reducers/secretReducer";
 import { Alias } from "../aliases/types";
+import { Actions } from "./index";
 
 export const updateSecret = (code: string) => ({
-  type: SecretAction.SET,
+  type: Actions.Secret.SET,
   payload: { code }
 });
 

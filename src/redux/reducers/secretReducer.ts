@@ -1,23 +1,25 @@
-import { Paths } from "../paths";
+import { Actions } from "../actions";
 
 const initialState = {
   code: '',
   publicHalf: ''
 };
 
-export const SecretAction = {
-
-} as const;
-
-export const secretReducer = (state = initialState, action: any) => {
+export const secretReducer = (
+    state = initialState,
+    action: { type: string; payload: any; }
+) => {
   switch (action.type) {
-    case SecretAction.SET:
+    case Actions.Secret.SET:
       return {
         ...state,
         code: action.payload.code,
         publicHalf: action.payload.code.slice(0, action.payload.code.length / 2)
       };
     default:
-      return state;
+      return {
+        ...state,
+        publicHalf: state.code.slice(0, state.code.length / 2)
+      }
   }
 };

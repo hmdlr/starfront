@@ -1,3 +1,5 @@
+import { Actions } from "../actions";
+
 export interface Collectible {
   url: {
     symbols: number; // [0...∞] number of symbols in the url (numbers, special characters)
@@ -47,14 +49,9 @@ export const initCollectible = (): Collectible => ({
 });
 
 const initialState: Collectible = initCollectible();
-
-export enum Action {
-  UpdateCollection = 'UPDATE_COLLECTION',
-}
-
 export const collectedReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case Action.UpdateCollection:
+    case Actions.Collected.UPDATE:
       return {
         ...state,
         ...action.payload
