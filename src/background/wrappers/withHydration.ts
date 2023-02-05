@@ -1,6 +1,5 @@
 import { Paths } from "../../redux/paths";
-import { Store } from "webext-redux";
-import { storageRemove } from "../../persistence/chromeStorage";
+import { storageCleanupTTL, storageRemove, storageRetrieve } from "../../persistence/chromeStorage";
 
 /**
  * Wraps a reducer to allow for hydration.
@@ -27,46 +26,42 @@ export const withHydration = <T extends (
   return reducer(state, action);
 };
 
-export const hydrateStore = <T extends {
+export const hydrateStore = async <T extends {
   dispatch: (action: any) => void;
 }>(store: T) => {
   const hydrationState: Record<string, any> = {};
 
-  chrome.storage.local.get(null, (result) => {
-    Object.keys(result)
-        .forEach((key) => {
-          if (Object.values(Paths)
-              .includes(key as any)) {
+  await storageCleanupTTL();
+  const storage = await storageRetrieve<Record<string, any>>(null);
 
-            // Setting the hydration state for the current reducer to an empty object
-            hydrationState[key] = {};
+  Object.keys(storage)
+      .forEach((key) => {
+        if (Object.values(Paths)
+            .includes(key as any)) {
 
-            const reducerArea = result[key];
+          // Setting the hydration state for the current reducer to an empty object
+          hydrationState[key] = {};
 
-            Object.values(reducerArea)
-                .forEach((payload: any & { _ttl?: number }) => {
-                  if (payload._ttl && payload._ttl < Date.now()) {
-                    // If the payload has a ttl and the ttl has expired, we do not want to hydrate the state with this payload.
-                    // We also want to remove the payload from storage.
-                    // storageRemove(key)
-                    // return;
+          const reducerArea = storage[key];
+
+          Object.values(reducerArea)
+              .forEach((payload: any & { _ttl?: number }) => {
+                hydrationState[key] = {
+                  ...hydrationState[key],
+                  ...{
+                    ...payload,
+                    _ttl: undefined
                   }
-                  hydrationState[key] = {
-                    ...hydrationState[key],
-                    ...{
-                      ...payload,
-                      _ttl: undefined
-                    }
-                  };
-                });
-          }
+                };
+              });
+        }
+      });
+
+  Object.keys(hydrationState)
+      .forEach((key) => {
+        store.dispatch({
+          type: `${key}/HYDRATE`,
+          payload: hydrationState[key]
         });
-    Object.keys(hydrationState)
-        .forEach((key) => {
-          store.dispatch({
-            type: `${key}/HYDRATE`,
-            payload: hydrationState[key]
-          });
-        });
-  });
+      });
 };
