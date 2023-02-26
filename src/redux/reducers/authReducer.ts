@@ -1,8 +1,13 @@
 import { Actions } from "../actions";
 
-const initialState = {
-  jwt: '',
-  username: '',
+interface AuthState {
+  jwt: string | undefined,
+  username: string | undefined,
+}
+
+const initialState: AuthState = {
+  jwt: undefined,
+  username: undefined,
 }
 
 export const authReducer = (

@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import ReactLoading from 'react-loading';
 import '../styles/App.css';
-import env from "../env";
-import { storageRetrieve } from "../persistence/chromeStorage";
 import { Welcome } from './screens/welcome';
-import { useStore } from "react-redux";
+import { useSelector } from "react-redux";
+import { selectUsername } from "../redux/selectors/authSelector";
 
 /**
  * Popup react page
  * @constructor
  */
 export const App = () => {
-  const [isAuth, setIsAuth] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      const token: string | undefined = await storageRetrieve(env.tokenLocation);
-      if (token) {
-        setIsAuth(true);
-      }
-      setLoaded(true);
-    })();
-  }, []);
+  const username = useSelector(selectUsername);
 
   return (
       <div className={'gradient-body'}>
@@ -35,20 +23,13 @@ export const App = () => {
           height: '100%',
         }}>
           {
-              !loaded && (
-                  <ReactLoading type={"spin"} color={'#094a80'}/>
-              )
-          }
-          {
-              loaded && (
-                  isAuth ? (
-                      <div>
-                        <h1>Authenticated</h1>
-                      </div>
-                  ) : (
-                      <Welcome/>
-                  )
-              )
+            username ? (
+                <div>
+                  <h1>Authenticated</h1>
+                </div>
+            ) : (
+                <Welcome/>
+            )
           }
         </div>
       </div>

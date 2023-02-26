@@ -1,5 +1,5 @@
 import { Paths } from "../../redux/paths";
-import { storageCleanupTTL, storageRemove, storageRetrieve } from "../../persistence/chromeStorage";
+import { storageCleanupTTL, storageRetrieve } from "../../persistence/chromeStorage";
 
 /**
  * Wraps a reducer to allow for hydration.

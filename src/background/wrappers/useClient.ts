@@ -1,45 +1,48 @@
-import { StarClient } from "@hmdlr/types";
-import axios, { AxiosRequestConfig } from "axios";
-import { storageRetrieve } from "../../persistence/chromeStorage";
 import env from "../../env";
+import { storageRetrieve } from "../../persistence/chromeStorage";
 
-const defaultOptions: AxiosRequestConfig = {
+export const defaultOptions = {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
-  },
-};
-
-const clientContext: {
-  client: StarClient
-} = {
-  client: {
-    get: (url: string, options?: any) => axios.get(url, { ...defaultOptions, ...options }),
-    post: (url: string, data: any, options?: any) => axios.post(url, data, { ...defaultOptions, ...options }),
-    put: (url: string, data: any, options?: any) => axios.put(url, data, { ...defaultOptions, ...options }),
-    delete: (url: string, options?: any) => axios.delete(url, { ...defaultOptions, ...options }),
   }
 };
 
-export const useClient = async (): Promise<StarClient> => {
-  await injectToken();
+const clientContext = {
+  client: {
+    get: (url: string, options: RequestInit = {}) => starfetch(url, {
+      ...defaultOptions,
+      ...options
+    } as RequestInit),
+    post: (url: string, options: RequestInit = {}) => starfetch(url, {
+      ...defaultOptions,
+      method: "POST",
+      ...options
+    } as RequestInit),
+    put: (url: string, options: RequestInit = {}) => starfetch(url, {
+      ...defaultOptions,
+      method: "PUT",
+      ...options
+    } as RequestInit),
+    delete: (url: string, options: RequestInit = {}) => starfetch(url, {
+      ...defaultOptions,
+      method: "DELETE",
+      ...options
+    } as RequestInit)
+  }
+};
+
+export const useClient = (): typeof clientContext.client => {
   return clientContext.client;
 };
 
-async function injectToken() {
+async function starfetch(input: RequestInfo, init?: RequestInit) {
   const token: string | undefined = await storageRetrieve(env.tokenLocation);
-  if (!token) {
-    axios.interceptors.request.clear();
-    return;
-  }
-
-  axios.interceptors.request.clear();
-  axios.interceptors.request.use((config) => {
-    if (!config.headers) {
-      config.headers = {};
-    }
-    // @ts-ignore
-    config.headers.Authorization = `Bearer ${token}`;
-    return config;
+  return fetch(input, {
+    ...init,
+    headers: {
+      ...init?.headers,
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    } as HeadersInit
   });
 }

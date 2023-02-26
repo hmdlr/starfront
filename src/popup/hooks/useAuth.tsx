@@ -1,15 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { generateSecret } from "../../redux/actions/secretActions";
 import { useSelector, useStore } from "react-redux";
-import { selectPublicHalf } from "../../redux/selectors/secretSelector";
+import { selectPublicHalf, selectSecret } from "../../redux/selectors/secretSelector";
 import env from "../../env";
 import { Microservice } from "@hmdlr/utils/dist/Microservice";
 import { selectUsername } from "../../redux/selectors/authSelector";
-import { clearJwt } from "../../redux/actions/authActions";
+import { clearJwt, pingForJwt, setJwt } from "../../redux/actions/authActions";
 
 const authContext = createContext<{
   username: string | undefined,
-  completingSignIn: boolean,
+  awaitingSignIn: boolean,
   signIn: () => void,
   signOut: () => void,
 }>(undefined!);
@@ -27,29 +27,42 @@ function useProvideAuth() {
   const store = useStore();
   const publicHalf = useSelector(selectPublicHalf);
   const username = useSelector(selectUsername);
-  const [completingSignIn, setCompletingSignIn] = useState<boolean>(false);
+  const [awaitingSignIn, setAwaitingSignIn] = useState<boolean>(false);
+  const [userClicked, setUserClicked] = useState<boolean>(false);
+  const [previousToken, setPreviousToken] = useState<string | undefined>(undefined);
 
-  const [clicked, setClicked] = useState<boolean>(false);
+  // open auth page
+  useEffect(() => {
+    if (!publicHalf || !userClicked || previousToken === publicHalf) {
+      return;
+    }
+    window.open(`${env.front[Microservice.Authphish]}/auth?ext-token=${publicHalf}`);
+  }, [publicHalf, userClicked, previousToken]);
 
+  // check if we're waiting for the user to sign in
   useEffect(() => {
     // if we have a public half stored, but no username, we're waiting for the user to sign in
     if (publicHalf && !username) {
-      setCompletingSignIn(true);
+      setAwaitingSignIn(true);
+    } else {
+      setAwaitingSignIn(false);
     }
   }, [username, publicHalf]);
 
+  // ping the server to see if the user has signed in yet, whenever user opens popup
+  useEffect(() => {
+    if (!awaitingSignIn) {
+      return;
+    }
+    store.dispatch(pingForJwt());
+  }, [awaitingSignIn])
+
   const signIn = () => {
-    setClicked(true);
+    setUserClicked(true);
+    setPreviousToken(publicHalf);
     /* Telling service worker to generate a secret & save it in state */
     store.dispatch(generateSecret());
   };
-
-  useEffect(() => {
-    if (!publicHalf || publicHalf === '' || !clicked) {
-      return;
-    }
-    window.open(`${env.front[Microservice.Authphish]}/auth?ident=${publicHalf}`);
-  }, [publicHalf, clicked]);
 
   const signOut = () => {
     store.dispatch(clearJwt());
@@ -57,7 +70,7 @@ function useProvideAuth() {
 
   return {
     username,
-    completingSignIn,
+    awaitingSignIn,
     signIn,
     signOut,
   };
