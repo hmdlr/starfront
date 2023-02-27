@@ -15,14 +15,15 @@ export const authAliases = {
       store.dispatch(pongForJwt(token));
     }
   }),
-  [Alias.Auth.PONG_FOR_TOKEN]: (token: string) => withPersist(setJwt(token)),
-}
+  [Alias.Auth.PONG_FOR_TOKEN]: (action: { payload: any, type: string }) => (
+      withPersist(setJwt(action.payload?.jwt))
+  )
+};
 
 async function getTokenAuthStatus() {
   const client = useClient();
   const secret = store.getState().secretReducer.code;
   const response = await client.get(`${env.api[Microservice.Authphish]}/api/auth/ext-token?token=${secret}`);
   const { token } = await response.json();
-  console.log(token);
   return token;
 }

@@ -5,7 +5,7 @@ import { Alias } from "../aliases/types";
 export const setJwt = (jwt: string | undefined) => ({
   type: Actions.Auth.SET_JWT,
   payload: {
-    jwt: jwt,
+    jwt,
     username: jwt ? getParsedJwt<{ username: string }>(jwt)?.username : undefined
   }
 });
