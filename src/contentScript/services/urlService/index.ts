@@ -1,8 +1,8 @@
 import * as shorteners from "./shorteners.json";
 
-export const countUrlSymbols = (url: string) => {
+export const countDomainSymbols = (domain: string) => {
   const regex = /[^a-zA-Z.\/:]/g;
-  const matches = url.match(regex);
+  const matches = domain.match(regex);
   return matches ? matches.length : 0;
 };
 

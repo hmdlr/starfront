@@ -5,7 +5,8 @@ export interface Collectible {
     symbols: number; // [0...∞] number of symbols in the url (numbers, special characters)
     knownSimilarity: number; // [0...1] known similarity to other stored urls
     isIP: boolean; // is the url an IP address?
-    shortened: boolean; // is the url shortened? [bitly, rebrandly, tinyurl, shortio, etc]
+    shortened: boolean; // is the url shortened? [bitly, rebrandly, tinyurl, shortio, etc],
+    isPunycode: boolean; // is the url punycode?
   };
   ssl: {
     has: boolean;
@@ -18,8 +19,6 @@ export interface Collectible {
     similarity: number; // [0...1] similarity to other favicons
   };
   totalImageSpace: number; // [0...1] the total space that images take up on the page
-  // mirrorProxy: boolean; // is the page a mirrorProxy? // only checking if favicon matches, and only with the favicon's original domain
-  // referrerSafe: boolean | undefined; // can either be true, false or undefined (if we don't know, window.location.origin is not always available)
 }
 
 export const initCollectible = (): Collectible => ({
@@ -28,6 +27,7 @@ export const initCollectible = (): Collectible => ({
     knownSimilarity: 0,
     isIP: false,
     shortened: false,
+    isPunycode: false,
   },
   ssl: {
     has: true,

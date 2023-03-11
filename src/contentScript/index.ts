@@ -18,7 +18,10 @@ export const runStarphish = async () => {
 
   const collectible = collect();
   const serverCache = await getServerCache(invoker);
+
   console.log(collectible);
 };
 
-runStarphish();
+(async () => {
+  await runStarphish();
+})();
