@@ -1,5 +1,6 @@
 export const Paths = {
   Secret: 'secretReducer',
   Collected: 'collectedReducer',
-  Auth: 'authReducer'
+  Auth: 'authReducer',
+  Invoker: 'invokerReducer',
 } as const;

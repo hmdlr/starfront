@@ -14,6 +14,8 @@ export const clearJwt = () => ({
   type: Alias.Auth.CLEAR_TOKEN,
 });
 
+
+/* Ping the server to check for presence of the token along with the secret */
 export const pingForJwt = () => ({
   type: Alias.Auth.PING_FOR_TOKEN,
 });

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import ReactLoading from 'react-loading';
+import React from 'react';
 import '../styles/App.css';
 import { Welcome } from './screens/welcome';
 import { useSelector } from "react-redux";

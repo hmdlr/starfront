@@ -7,8 +7,8 @@
     "@babel/eslint-parser": "^7.19.1",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
-    "@hmdlr/types": "^2.2.0",
-    "@hmdlr/utils": "^0.1.15",
+    "@hmdlr/types": "^2.2.5",
+    "@hmdlr/utils": "^0.1.62",
     "@types/chrome": "^0.0.206",
     "@types/jest": "^26.0.24",
     "@types/node": "^12.20.38",
@@ -16,6 +16,7 @@
     "@types/react-dom": "^17.0.11",
     "@webcomponents/custom-elements": "^1.5.0",
     "axios": "^1.2.2",
+    "extract-domain": "^2.4.8",
     "react": "^17.0.2",
     "react-browser-extension-scripts": "4.0.10",
     "react-dom": "^17.0.2",
@@ -30,7 +31,7 @@
     "webext-redux": "^2.1.9"
   },
   "scripts": {
-    "start": "REACT_APP_FRONTPHISH_PORT=$FRONTPHISH_PORT REACT_APP_AUTHPHISH_PORT=$AUTHPHISH_PORT react-scripts start",
+    "start": "REACT_APP_FRONTPHISH_PORT=$FRONTPHISH_PORT REACT_APP_AUTHPHISH_PORT=$AUTHPHISH_PORT REACT_APP_SCANPHISH_PORT=$SCANPHISH_PORT react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -48,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@types/extract-domain": "^2.3.1",
     "@types/remote-redux-devtools": "^0.5.5",
     "@types/uuid": "^9.0.0",
     "redux-devtools-extension": "^2.13.9",

@@ -1,5 +1,5 @@
-import env from "../../env";
-import { storageRetrieve } from "../../persistence/chromeStorage";
+import { store } from "../../redux/store";
+import { selectJwt } from "../../redux/selectors/authSelector";
 
 export const defaultOptions = {
   method: "GET",
@@ -28,7 +28,11 @@ const clientContext = {
       ...defaultOptions,
       method: "DELETE",
       ...options
-    } as RequestInit)
+    } as RequestInit),
+    request: (url: string, options: RequestInit = {}) => starfetch(url, {
+      ...defaultOptions,
+      ...options
+    } as RequestInit),
   }
 };
 
@@ -36,8 +40,8 @@ export const useClient = (): typeof clientContext.client => {
   return clientContext.client;
 };
 
-async function starfetch(input: RequestInfo, init?: RequestInit) {
-  const token: string | undefined = await storageRetrieve(env.tokenLocation);
+function starfetch(input: RequestInfo, init?: RequestInit) {
+  const token: string | undefined = selectJwt(store.getState());
   return fetch(input, {
     ...init,
     headers: {

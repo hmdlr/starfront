@@ -1,18 +1,24 @@
-// If your extension doesn't need a content script, just leave this file empty
-
-// This is an example of a script that will run on every page. This can alter pages
-// Don't forget to change `matches` in manifest.json if you want to only change specific webpages
-
-// This needs to be an export due to typescript implementation limitation of needing '--isolatedModules' tsconfig
-
 import { getLogger } from '@hmdlr/utils';
 import env from '../env';
+import { collect, getServerCache } from "./collector";
+import { Store, applyMiddleware } from 'webext-redux';
+import thunkMiddleware from 'redux-thunk';
+import { getInvoker } from "../invoker";
+
+const proxyStore = new Store({ portName: env.commPort });
+
+const middleware = [thunkMiddleware];
+const store = applyMiddleware(proxyStore, ...middleware);
 
 const logger = getLogger();
 export const runStarphish = async () => {
-  logger.info(`StarPhish ${env.version.name} is shielding you!`);
+  logger.info(`Starphish ${env.version.name} is shielding you!`);
 
+  const invoker = getInvoker(store);
 
+  const collectible = collect();
+  const serverCache = await getServerCache(invoker);
+  console.log(collectible);
 };
 
 runStarphish();

@@ -15,6 +15,9 @@ export default {
     [Microservice.Authphish]: process.env.NODE_ENV === 'development'
         ? `${LocalPaths[Microservice.Authphish]}`
         : `${DeployedPaths[Microservice.Authphish]}`,
+    [Microservice.Scanphish]: process.env.NODE_ENV === 'development'
+        ? `${LocalPaths[Microservice.Scanphish]}`
+        : `${DeployedPaths[Microservice.Scanphish]}`,
   },
   front: {
     [Microservice.Authphish]: process.env.NODE_ENV === 'development'

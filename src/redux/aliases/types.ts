@@ -7,5 +7,8 @@ export const Alias = {
     CLEAR_TOKEN: 'BACKGROUND_CLEAR_TOKEN',
     PING_FOR_TOKEN: 'BACKGROUND_PING_FOR_TOKEN',
     PONG_FOR_TOKEN: 'BACKGROUND_PONG_FOR_TOKEN',
+  },
+  Invoker: {
+    INVOKE: 'BACKGROUND_INVOKE',
   }
 } as const;

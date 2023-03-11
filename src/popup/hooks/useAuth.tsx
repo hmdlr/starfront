@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { generateSecret } from "../../redux/actions/secretActions";
 import { useSelector, useStore } from "react-redux";
-import { selectPublicHalf, selectSecret } from "../../redux/selectors/secretSelector";
+import { selectPublicHalf } from "../../redux/selectors/secretSelector";
 import env from "../../env";
 import { Microservice } from "@hmdlr/utils/dist/Microservice";
 import { selectUsername } from "../../redux/selectors/authSelector";
-import { clearJwt, pingForJwt, setJwt } from "../../redux/actions/authActions";
+import { clearJwt, pingForJwt } from "../../redux/actions/authActions";
 
 const authContext = createContext<{
   username: string | undefined,
